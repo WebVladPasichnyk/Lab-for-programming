@@ -1,19 +1,14 @@
-#include <stdio.h>
-#include <math.h>
+#include "stdio.h"
+#include "math.h"
 
-float fun(float x)
-{
-   return x * x / 4 + x - 1.2502;
-}
-
-int main()
-{
-   FILE *text = fopen("lab_6_2_resolt.txt", "w");
-   for (float x = 0; x <= 10; x++)
+int main() {
+   float sum, average;
+   sum = 0;
+   int A[] = {5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 5, 7, 8, 9, 10, 10, 9, 8, 7, 7, 6, 5, 5, 5, 5};
+   for (int i = 0; i < 24; i++)
    {
-      fprintf(text, "\n%f", x);
-      fprintf(text, "   %f", fun(x));
+      sum = sum + A[i];
    }
-   fclose(text);
-   return 0;
+   average = sum / 24;
+   printf("%f\n", average);
 }
