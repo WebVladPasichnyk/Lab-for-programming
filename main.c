@@ -2,36 +2,37 @@
 #include <stdlib.h>
 #include <math.h>
 
-float T = 0.03;
-int N = 200;
-
+const float T = 0.04;
+const int N = 200;
 int i;
 
-double sygn(float t)
+double sygn (float t)
 {
     double s;
-
+    
     if (t == 0) s = 0;
-    if ((t > 0) && (t <= 0.4 * T)) s = 6 * t / (0.4 * T);
-    if ((t > 0.4 * T) && (t <= 0.08 )) s = 6;
-    if ((t > 0.8 * T) && (t <= T)) s = 6 - 6 * (t - 0.06) / 0.02;
+    if ((t > 0) && (t <= T / 4)) s = 5*t / (T / 4);
+    if ((t > T/4) && (t <= 0.75 * T)) s = 5-15*(t-T/4) / (0.75*T);
+    if ((t > 0.75*T ) && (t <= T)) s = 5*t / (T / 4) - 20 ;
+    if (t == T) s = 0;
 
     return s;
-
 }
-int main ()
- {
-    FILE* file = fopen("lab_8", "w+");
+
+int main()
+{
+      double w;
+    w = (2 * 3.14159) / T;
+    FILE *graf;
+
     float h = T / N;
     float t[N], s[N];
-    for (i = 0; i < N; i++ )
+    graf = fopen("graf.txt", "w");
+    for (i = 0; i < N; i++)
     {
-        t[i] = i * h;
-        s[i] = sygn(t[i]);
-        fprintf(file, "%f    %f\n", t[i], s[i]);
+        t[i]=i*h;
+        s[i]=sygn(t[i]);
+      fprintf(graf,"%f %f\n", t[i], s[i]);
     }
-
-    fclose(file);   
-
+    fclose(graf);
 }
-
